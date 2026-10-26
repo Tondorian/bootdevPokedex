@@ -1,12 +1,11 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "nodenext",
+    "module": "ESNext",
     "types": ["node"],
     "rootDir": "./src",
     "outDir": "./dist",
     "strict": true,
-    "moduleResolution": "nodenext",
     "esModuleInterop": true,
     "skipLibCheck": true
   },

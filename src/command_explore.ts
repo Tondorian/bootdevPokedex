@@ -1,4 +1,4 @@
-import { State } from "./state.js";
+import { State } from "./state";
 
 export async function commandExplore(state: State, ...args: string[]) {
     if (args.length === 0) {

@@ -1,4 +1,4 @@
-import { State } from "./state.js";
+import { State } from "./state";
 
 export  async function commandExit(state: State) {
     state.interface.close();

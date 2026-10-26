@@ -1,4 +1,4 @@
-import { startREPL } from './repl.js'
+import { startREPL } from './repl'
 
 async function main() {
     startREPL();

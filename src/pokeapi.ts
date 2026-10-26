@@ -1,4 +1,4 @@
-import { Cache } from './pokecache.js';
+import { Cache } from './pokecache';
 
 const DEFAULT_PAGE_LIMIT = 20;
 

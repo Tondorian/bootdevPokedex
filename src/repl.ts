@@ -1,4 +1,4 @@
-import { initState } from './state.js';
+import { initState } from './state';
 
 export function cleanInput(input: string) : string[] {
     return input.trim().toLowerCase().split(/\s/).filter((word) => word !== "");
