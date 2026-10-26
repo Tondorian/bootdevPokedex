@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, test, vi } from 'vitest';
-import { Cache } from './pokecache.js';
+import { Cache } from '../src/pokecache.js';
 
 // A long interval keeps the reap loop out of the way for the plain add/get tests.
 const NO_REAPING = 60_000;

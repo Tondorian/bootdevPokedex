@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { cleanInput } from './repl.js';
+import { cleanInput } from '../src/repl.js';
 
 /*
  * Each table entry becomes its own test, so a failure points directly at the

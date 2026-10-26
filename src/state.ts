@@ -4,36 +4,40 @@ import { commandHelp } from './command_help.js';
 import { commandExplore } from './command_explore.js'
 import { commandMap, commandMapB } from "./command_map.js";
 import { PokeAPI } from "./pokeapi.js";
+import { cleanInput } from "./repl.js";
 
 export type CLICommand = {
     name: string,
     description: string,
-    callback: (state: State) => Promise<void> 
+    callback: (state: State, ...args: string[]) => Promise<void> 
 } 
 
 export type State = {
     interface: Interface,
     commands: Record<string, CLICommand>,
     pokeApi: PokeAPI,
-    nextLocationURL: string,
-    prevLocationURL: string
+    nextLocationURL: string | null,
+    prevLocationURL: string | null
 }
 
 export async function initState() {
     const rl = createInterface({input: process.stdin, output: process.stdout, prompt: "Pokedex > "})
     const pokeApi = new PokeAPI;
-    const state: State = {interface: rl, commands: getCommands(), pokeApi, prevLocationURL: "", nextLocationURL: ""};
+    const state: State = {interface: rl, commands: getCommands(), pokeApi, prevLocationURL: null, nextLocationURL: null};
     
-    rl.on("line", (line) => {
-        const commands = getCommands();
-        const cmd = commands[line.split(" ")[0]];
+    rl.on("line", async (line) => {
+        const commands = state.commands;
+        const [command, ...args] = cleanInput(line);
+
+        const cmd = commands[command];
         if(cmd)
         {
             try {
-                cmd.callback(state);
+                await cmd.callback(state, ...args);
             }
             catch (e){
              console.log((e as Error).message);
+             rl.prompt();
             }
         }
         else
@@ -45,7 +49,8 @@ export async function initState() {
     rl.prompt();
     return {
         interface: rl,
-        commands: null
+        commands: null,
+        pokeapi: pokeApi
     }
 }
 

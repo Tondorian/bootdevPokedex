@@ -2,70 +2,16 @@
 > pokedex@1.0.0 dev
 > npx tsc && node dist/main.js
 
-Pokedex > Pokedex > [
-  { name: 'canalave-city-area' },
-  { name: 'eterna-city-area' },
-  { name: 'pastoria-city-area' },
-  { name: 'sunyshore-city-area' },
-  { name: 'sinnoh-pokemon-league-area' },
-  { name: 'oreburgh-mine-1f' },
-  { name: 'valley-windworks-area' },
-  { name: 'eterna-forest-area' },
-  { name: 'fuego-ironworks-area' },
-  { name: 'mt-coronet-1f-route-207' },
-  { name: 'great-marsh-area-1' },
-  { name: 'solaceon-ruins-2f' },
-  { name: 'sinnoh-victory-road-1f' },
-  { name: 'ravaged-path-area' },
-  { name: 'oreburgh-gate-1f' },
-  { name: 'stark-mountain-area' },
-  { name: undefined },
-  { name: 'turnback-cave-pillar-1' },
-  { name: 'snowpoint-temple-1f' },
-  { name: 'wayward-cave-1f' }
-]
-Pokedex > [
-  { name: 'ruin-maniac-cave-0-9-different-unown-caught' },
-  { name: 'trophy-garden-area' },
-  { name: 'iron-island-area' },
-  { name: 'old-chateau-entrance' },
-  { name: 'lake-verity-before-galactic-intervention' },
-  { name: 'lake-valor-area' },
-  { name: 'lake-acuity-area' },
-  { name: 'valor-lakefront-area' },
-  { name: 'acuity-lakefront-area' },
-  { name: 'sinnoh-route-201-area' },
-  { name: 'sinnoh-route-202-area' },
-  { name: 'sinnoh-route-203-area' },
-  { name: 'sinnoh-route-204-south-towards-jubilife-city' },
-  { name: 'sinnoh-route-205-south-towards-floaroma-town' },
-  { name: 'sinnoh-route-206-area' },
-  { name: 'sinnoh-route-207-area' },
-  { name: 'sinnoh-route-208-area' },
-  { name: 'sinnoh-route-209-area' },
-  { name: 'lost-tower-1f' },
-  { name: 'sinnoh-route-210-south-towards-solaceon-town' }
-]
-Pokedex > [
-  { name: 'canalave-city-area' },
-  { name: 'eterna-city-area' },
-  { name: 'pastoria-city-area' },
-  { name: 'sunyshore-city-area' },
-  { name: 'sinnoh-pokemon-league-area' },
-  { name: 'oreburgh-mine-1f' },
-  { name: 'valley-windworks-area' },
-  { name: 'eterna-forest-area' },
-  { name: 'fuego-ironworks-area' },
-  { name: 'mt-coronet-1f-route-207' },
-  { name: 'great-marsh-area-1' },
-  { name: 'solaceon-ruins-2f' },
-  { name: 'sinnoh-victory-road-1f' },
-  { name: 'ravaged-path-area' },
-  { name: 'oreburgh-gate-1f' },
-  { name: 'stark-mountain-area' },
-  { name: undefined },
-  { name: 'turnback-cave-pillar-1' },
-  { name: 'snowpoint-temple-1f' },
-  { name: 'wayward-cave-1f' }
-]
-Pokedex > Closing the Pokedex... Goodbye!
+Pokedex > Pokedex > Exploring pastoria-city-area...
+Found Pokemon:
+ - tentacool
+ - tentacruel
+ - magikarp
+ - gyarados
+ - remoraid
+ - octillery
+ - wingull
+ - pelipper
+ - shellos
+ - gastrodon
+Closing the Pokedex... Goodbye!
