@@ -5,6 +5,9 @@ import { commandExplore } from './command_explore'
 import { commandMap, commandMapB } from "./command_map";
 import { PokeAPI } from "./pokeapi";
 import { cleanInput } from "./repl";
+import { commandCatch } from "./command_catch";
+import { Pokemon } from "./pokemon";
+import { commandInspect } from "./command_inspect";
 
 export type CLICommand = {
     name: string,
@@ -16,41 +19,47 @@ export type State = {
     interface: Interface,
     commands: Record<string, CLICommand>,
     pokeApi: PokeAPI,
+    pokedex: Record<string, Pokemon>,
     nextLocationURL: string | null,
     prevLocationURL: string | null
 }
 
-export async function initState() {
+export async function initState(): Promise<State> {
     const rl = createInterface({input: process.stdin, output: process.stdout, prompt: "Pokedex > "})
     const pokeApi = new PokeAPI;
-    const state: State = {interface: rl, commands: getCommands(), pokeApi, prevLocationURL: null, nextLocationURL: null};
-    
-    rl.on("line", async (line) => {
-        const commands = state.commands;
-        const [command, ...args] = cleanInput(line);
+    const pokedex: Record<string, Pokemon> = {};
+    const state: State = {interface: rl, commands: getCommands(), pokeApi, pokedex, prevLocationURL: null, nextLocationURL: null};
 
-        const cmd = commands[command];
-        if(cmd)
-        {
-            try {
-                await cmd.callback(state, ...args);
-            }
-            catch (e){
-             console.log((e as Error).message);
-             rl.prompt();
-            }
-        }
-        else
-        {
-            console.log("unknown command")
-            rl.prompt();
-        }
-    })
-    rl.prompt();
-    return {
-        interface: rl,
-        commands: null,
-        pokeapi: pokeApi
+    rl.on("line", (line) => {
+        void dispatch(state, line);
+    });
+
+    return state;
+}
+
+/**
+ * Parses one REPL input line and runs the matching command.
+ * Only failures and unknown commands re-prompt; successful commands do it themselves.
+ */
+export async function dispatch(state: State, line: string) {
+    const [name, ...args] = cleanInput(line);
+    if (!name) {
+        state.interface.prompt();
+        return;
+    }
+
+    const command = state.commands[name];
+    if (!command) {
+        console.log("Unknown command");
+        state.interface.prompt();
+        return;
+    }
+
+    try {
+        await command.callback(state, ...args);
+    } catch (error) {
+        console.log((error as Error).message);
+        state.interface.prompt();
     }
 }
 
@@ -78,8 +87,19 @@ function getCommands() : Record<string, CLICommand> {
         },
         explore: {
             name: "explore",
-            description: "",
+            description: "explore a map to find some pokemon",
             callback: commandExplore
+        },
+        catch: {
+            name: "catch",
+            description: "Try to catch a pokemon",
+            callback: commandCatch
+        },
+        inspect: {
+
+            name: "inspect",
+            description: "Inspect a catched pokemon",
+            callback: commandInspect
         }
     }
 }

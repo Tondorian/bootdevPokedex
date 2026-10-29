@@ -1,17 +1,24 @@
 
 > pokedex@1.0.0 dev
-> npx tsc && node dist/main.js
+> npm run build && npm start
 
-Pokedex > Pokedex > Exploring pastoria-city-area...
-Found Pokemon:
- - tentacool
- - tentacruel
- - magikarp
- - gyarados
- - remoraid
- - octillery
- - wingull
- - pelipper
- - shellos
- - gastrodon
+
+> pokedex@1.0.0 build
+> npx vite build && node scripts/add-ext.mjs
+
+vite v8.3.5 building client environment for production...
+transforming...
+✓ 11 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/main.js  6.47 kB │ gzip: 2.14 kB
+
+✓ built in 32ms
+Post-build: no changes needed in dist/main.js
+
+> pokedex@1.0.0 start
+> node dist/main.js
+
+Pokedex > Pokedex > Throwing a Pokeball at squirtle...
+squirtle was caught!
 Closing the Pokedex... Goodbye!

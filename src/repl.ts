@@ -5,7 +5,6 @@ export function cleanInput(input: string) : string[] {
 }
 
 export async function startREPL() {
-    const state = initState();
-    (await state).interface.prompt();
-    
+    const state = await initState();
+    state.interface.prompt();
 }

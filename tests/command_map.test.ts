@@ -25,7 +25,7 @@ afterEach(() => {
 describe('commandMap', () => {
     test('fetches the first page when no page is stored yet', async () => {
         const log = vi.spyOn(console, 'log').mockImplementation(() => {});
-        const { state, fetchLocations } = createState();
+        const { state, fetchLocations, prompt } = createState();
         fetchLocations.mockResolvedValue(firstPage);
 
         await commandMap(state);
@@ -40,11 +40,12 @@ describe('commandMap', () => {
         ]);
         expect(state.nextLocationURL).toBe(SECOND_PAGE_URL);
         expect(state.prevLocationURL).toBeNull();
+        expect(prompt).toHaveBeenCalledTimes(1);
     });
 
     test('fetches the stored next page and advances the pagination state', async () => {
         const log = vi.spyOn(console, 'log').mockImplementation(() => {});
-        const { state, fetchLocations } = createState({
+        const { state, fetchLocations, prompt } = createState({
             nextLocationURL: SECOND_PAGE_URL,
             prevLocationURL: LIST_URL,
         });
@@ -59,23 +60,25 @@ describe('commandMap', () => {
         ]);
         expect(state.nextLocationURL).toBe(THIRD_PAGE_URL);
         expect(state.prevLocationURL).toBe(LIST_URL);
+        expect(prompt).toHaveBeenCalledTimes(1);
     });
 });
 
 describe('commandMapB', () => {
     test("prints a hint and does not fetch on the first page", async () => {
         const log = vi.spyOn(console, 'log').mockImplementation(() => {});
-        const { state, fetchLocations } = createState();
+        const { state, fetchLocations, prompt } = createState();
 
         await commandMapB(state);
 
         expect(fetchLocations).not.toHaveBeenCalled();
         expect(loggedLines(log)).toContain("you're on the first page");
+        expect(prompt).toHaveBeenCalledTimes(1);
     });
 
     test('fetches the stored previous page and moves the pagination back', async () => {
         const log = vi.spyOn(console, 'log').mockImplementation(() => {});
-        const { state, fetchLocations } = createState({
+        const { state, fetchLocations, prompt } = createState({
             nextLocationURL: THIRD_PAGE_URL,
             prevLocationURL: SECOND_PAGE_URL,
         });
@@ -90,5 +93,6 @@ describe('commandMapB', () => {
         ]);
         expect(state.nextLocationURL).toBe(SECOND_PAGE_URL);
         expect(state.prevLocationURL).toBeNull();
+        expect(prompt).toHaveBeenCalledTimes(1);
     });
 });

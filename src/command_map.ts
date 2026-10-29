@@ -7,6 +7,7 @@ export async function commandMap(state: State) {
         for (const location of locations.locations) {
             console.log(location.name)
         }
+        state.interface.prompt();
 }
 
 export async function commandMapB(state: State) {
@@ -22,4 +23,5 @@ export async function commandMapB(state: State) {
     else {
         console.log("you're on the first page")
     }
+    state.interface.prompt();
 }

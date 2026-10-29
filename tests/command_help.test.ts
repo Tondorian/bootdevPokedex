@@ -14,18 +14,19 @@ function command(name: string, description: string): CLICommand {
 describe('commandHelp', () => {
     test('prints the welcome message and the usage header', async () => {
         const log = vi.spyOn(console, 'log').mockImplementation(() => {});
-        const { state } = createState();
+        const { state, prompt } = createState();
 
         await commandHelp(state);
 
         const lines = loggedLines(log);
         expect(lines[0]).toBe('Welcome to the Pokedex!');
         expect(lines[1]).toMatch(/^Usage:/);
+        expect(prompt).toHaveBeenCalledTimes(1);
     });
 
     test('lists every registered command with its description', async () => {
         const log = vi.spyOn(console, 'log').mockImplementation(() => {});
-        const { state } = createState({
+        const { state, prompt } = createState({
             commands: {
                 exit: command('exit', 'Exits the pokedex'),
                 help: command('help', 'Displays a help message'),
@@ -39,5 +40,6 @@ describe('commandHelp', () => {
         expect(lines).toContain('exit: Exits the pokedex');
         expect(lines).toContain('help: Displays a help message');
         expect(lines).toContain('map: Displays the next 20 location areas');
+        expect(prompt).toHaveBeenCalledTimes(1);
     });
 });

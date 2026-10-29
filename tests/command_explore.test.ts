@@ -23,7 +23,7 @@ describe('commandExplore', () => {
         const exit = vi
             .spyOn(process, 'exit')
             .mockImplementation(() => undefined as never);
-        const { state, close, fetchLocation } = createState();
+        const { state, close, fetchLocation, prompt } = createState();
         fetchLocation.mockResolvedValue({
             name: 'pastoria-city-area',
             pokemon_encounters: [
@@ -43,6 +43,7 @@ describe('commandExplore', () => {
         expect(lines).toContain(' - tentacruel');
         expect(close).not.toHaveBeenCalled();
         expect(exit).not.toHaveBeenCalled();
+        expect(prompt).toHaveBeenCalledTimes(1);
     });
 
     test('asks for a location name when the argument is missing', async () => {
@@ -50,7 +51,7 @@ describe('commandExplore', () => {
         const exit = vi
             .spyOn(process, 'exit')
             .mockImplementation(() => undefined as never);
-        const { state, close, fetchLocation } = createState();
+        const { state, close, fetchLocation, prompt } = createState();
 
         await explore(state);
 
@@ -60,5 +61,6 @@ describe('commandExplore', () => {
         ).toBe(true);
         expect(close).not.toHaveBeenCalled();
         expect(exit).not.toHaveBeenCalled();
+        expect(prompt).toHaveBeenCalledTimes(1);
     });
 });

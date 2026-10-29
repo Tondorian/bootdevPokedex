@@ -13,4 +13,5 @@ export async function commandExplore(state: State, ...args: string[]) {
     for (const encounter of location.pokemon_encounters) {
         console.log(` - ${encounter.pokemon.name}`);
     }
+    state.interface.prompt();
 }

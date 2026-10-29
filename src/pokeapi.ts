@@ -1,4 +1,5 @@
 import { Cache } from './pokecache';
+import { Pokemon } from './pokemon';
 
 const DEFAULT_PAGE_LIMIT = 20;
 
@@ -51,7 +52,17 @@ export class PokeAPI {
             }))
         };
     }
+    async fetchPokemon(name: string) : Promise<Pokemon> {
+        const url = `${PokeAPI.baseURL}/pokemon/${name}`;
+        let result = this.cache.get<Pokemon>(url);
+        if (result === undefined) {
+            const response = await (await fetch(url)).json();
+            this.cache.add(url, response);
+            result = response as Pokemon;
+        }
 
+        return result;
+    }
     async fetchLocation(locationName: string): Promise<Location> {
         const url = `${PokeAPI.baseURL}/location-area/${locationName}`;
         let result = this.cache.get<LocationDetailResponse>(url);
@@ -92,10 +103,10 @@ export type Location = {
 }
 
 export type PokemonEncounter = {
-    pokemon: Pokemon
+    pokemon: PokemonL
 }
 
-export type Pokemon = {
+export type PokemonL = {
     name: string,
     url: string
 }
