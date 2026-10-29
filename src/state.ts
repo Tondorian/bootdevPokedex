@@ -8,6 +8,7 @@ import { cleanInput } from "./repl";
 import { commandCatch } from "./command_catch";
 import { Pokemon } from "./pokemon";
 import { commandInspect } from "./command_inspect";
+import { commandPokedex } from "./command_pokedex";
 
 export type CLICommand = {
     name: string,
@@ -100,6 +101,11 @@ function getCommands() : Record<string, CLICommand> {
             name: "inspect",
             description: "Inspect a catched pokemon",
             callback: commandInspect
+        },
+        pokedex: {
+            name: "pokedex",
+            description: "Show the current pokedex",
+            callback: commandPokedex
         }
     }
 }
